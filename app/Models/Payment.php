@@ -12,7 +12,6 @@ class Payment extends Model
     // 👇 تحديد الأعمدة القابلة للكتابة
     protected $fillable = [
         'user_id',
-        'project_id',
         'amount',
         'payment_method',
         'status',
@@ -26,8 +25,5 @@ class Payment extends Model
     }
 
     // 👇 العلاقة مع المشروع (اختياري لو فيه مشاريع)
-    public function project()
-    {
-        return $this->belongsTo(Project::class);
-    }
+
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -42,7 +43,7 @@ class UserController extends Controller
         'role' => $request->role,
     ]);
 
-    return redirect()->route('user.index')->with('success', 'User created successfully.');
+    return redirect()->route('users.index')->with('success', 'User created successfully.');
     
     }
     
@@ -86,17 +87,17 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->save();
 
-        return redirect()->route('user.index')->with('success', 'User updated successfully.');
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        $user = User::findOrFail($id);
+        //$user = User::find($id);
         $user->delete();
 
-        return redirect()->route('user.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('users.index');
     }
 }
