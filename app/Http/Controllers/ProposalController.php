@@ -1,33 +1,27 @@
 <?php
 
+
 namespace App\Http\Controllers;
 use App\Models\Proposal; 
 use Illuminate\Http\Request;
 
 class ProposalController extends Controller
 {
-    
+    use \Illuminate\Foundation\Validation\ValidatesRequests;
     public function index()
     {
-
-      return view("proposals.index"); 
-        
+        $proposals = Proposal::all();
+        return view("proposals.index", compact('proposals')); 
     }
 
-    /**
-     * Show the form for creating a new proposal.
-     */
     public function create()
     {
         return view('proposals.create');
     }
 
-    /**
-     * Store a newly created proposal in storage.
-     */
     public function store(Request $request)
     {
-      $this->validate($request, [
+        $this->validate($request, [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'budget' => 'nullable|numeric',
@@ -35,27 +29,22 @@ class ProposalController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
-        
         $proposal = new Proposal($request->all());
         $proposal->save();
 
         return redirect()->route('proposals.index')->with('success', 'Proposal created successfully.');
     }
 
-    
     public function show($id)
     {
-       $proposal = Proposal::find($id);
+        $proposal = Proposal::find($id);
         if (!$proposal) {
-            return redirect()->route('proposals.index')->with('error', 'Proposal not found.');
+            return redirect()->route('proposals.show')->with('error', 'Proposal not found.');
         }
 
         return view('proposals.show', compact('proposal'));
     }
 
-    /**
-     * Show the form for editing the specified proposal.
-     */
     public function edit($id)
     {
         $proposal = Proposal::find($id);
@@ -64,12 +53,8 @@ class ProposalController extends Controller
         }
 
         return view('proposals.edit', compact('proposal'));
-
     }
 
-    /**
-     * Update the specified proposal in storage.
-     */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -78,8 +63,6 @@ class ProposalController extends Controller
             'budget' => 'nullable|numeric',
             'deadline' => 'nullable|date',
         ]);
-        $proposal = Proposal::findOrFail($id);
-
         $proposal = Proposal::find($id);
         if (!$proposal) {
             return redirect()->route('proposals.index')->with('error', 'Proposal not found.');
@@ -90,12 +73,9 @@ class ProposalController extends Controller
         return redirect()->route('proposals.index')->with('success', 'Proposal updated successfully.');
     }
 
-    /**
-     * Remove the specified proposal from storage.
-     */
     public function destroy($id)
     {
-       $proposal = Proposal::find($id);
+        $proposal = Proposal::find($id);
         if (!$proposal) {
             return redirect()->route('proposals.index')->with('error', 'Proposal not found.');
         }
