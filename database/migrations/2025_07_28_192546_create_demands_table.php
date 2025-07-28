@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+        
 return new class extends Migration
 {
     /**
@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('proposals', function (Blueprint $table) {
+        Schema::create('demands', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description')->nullable();
-            $table->decimal('budget', 10, 2)->nullable();
-            $table->dateTime('deadline')->nullable();
+                $table->decimal('amount', 10, 2);
+                $table->decimal('',10,2);
+            $table->text('deadline')->nullable();
+        
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-                
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('proposals');
+        Schema::dropIfExists('demands');
     }
 };

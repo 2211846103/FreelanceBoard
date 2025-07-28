@@ -2,16 +2,15 @@
 
 namespace App\Models;
 
-
 use Illuminate\Database\Eloquent\Model;
 
-class proposal extends Model
+class Demand extends Model
 {
-   protected $fillable = [
+    protected $fillable = [
         'name',
-        'description',
-        'budget',
+        'amount',
         'deadline',
+        
         'user_id',
     ];
 

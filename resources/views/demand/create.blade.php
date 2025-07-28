@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>إضافة عرض جديد</h1>
-    <form action="{{ route('proposals.store') }}" method="POST">
+    <form action="{{ route('demands.store') }}" method="POST">
         @csrf
         <label>اسم العرض:</label>
         <input type="text" name="name" required><br><br>
