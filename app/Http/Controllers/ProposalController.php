@@ -11,12 +11,12 @@ class ProposalController extends Controller
     public function index()
     {
         $proposals = Proposal::all();
-        return view("proposal.index", compact('proposals')); 
+        return view("proposals.index", compact('proposals')); 
     }
 
     public function create()
     {
-        return view('proposal.create');
+        return view('proposals.create');
     }
 
     public function store(Request $request)
@@ -32,27 +32,27 @@ class ProposalController extends Controller
         $proposal = new Proposal($request->all());
         $proposal->save();
 
-        return redirect()->route('proposal.index')->with('success', 'Proposal created successfully.');
+        return redirect()->route('proposals.index')->with('success', 'Proposal created successfully.');
     }
 
     public function show($id)
     {
         $proposal = Proposal::find($id);
         if (!$proposal) {
-            return redirect()->route('proposal.show')->with('error', 'Proposal not found.');
+            return redirect()->route('proposals.show')->with('error', 'Proposal not found.');
         }
 
-        return view('proposal.show', compact('proposal'));
+        return view('proposals.show', compact('proposal'));
     }
 
     public function edit($id)
     {
         $proposal = Proposal::find($id);
         if (!$proposal) {
-            return redirect()->route('proposal.index')->with('error', 'Proposal not found.');
+            return redirect()->route('proposals.index')->with('error', 'Proposal not found.');
         }
 
-        return view('proposal.edit', compact('proposal'));
+        return view('proposals.edit', compact('proposal'));
     }
 
     public function update(Request $request, $id)
@@ -65,23 +65,23 @@ class ProposalController extends Controller
         ]);
         $proposal = Proposal::find($id);
         if (!$proposal) {
-            return redirect()->route('proposal.index')->with('error', 'Proposal not found.');
+            return redirect()->route('proposals.index')->with('error', 'Proposal not found.');
         }
 
         $proposal->update($request->all());
 
-        return redirect()->route('proposal.index')->with('success', 'Proposal updated successfully.');
+        return redirect()->route('proposals.index')->with('success', 'Proposal updated successfully.');
     }
 
     public function destroy($id)
     {
         $proposal = Proposal::find($id);
         if (!$proposal) {
-            return redirect()->route('proposal.index')->with('error', 'Proposal not found.');
+            return redirect()->route('proposals.index')->with('error', 'Proposal not found.');
         }
 
         $proposal->delete();
 
-        return redirect()->route('proposal.index')->with('success', 'Proposal deleted successfully.');
+        return redirect()->route('proposals.index')->with('success', 'Proposal deleted successfully.');
     }
 }

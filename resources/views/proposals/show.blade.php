@@ -11,6 +11,6 @@
     <p><strong>الميزانية:</strong> {{ $proposal->budget }}$</p>
     <p><strong>الموعد النهائي:</strong> {{ $proposal->deadline }}</p>
     <p><strong>رقم المستخدم:</strong> {{ $proposal->user_id }}</p>
-    <a href="{{ route('proposal.index') }}">الرجوع للقائمة</a>
+    <a href="{{ route('proposals.index') }}">الرجوع للقائمة</a>
 </body>
 </html>

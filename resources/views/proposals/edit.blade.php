@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>تعديل العرض</h1>
-    <form action="{{ route('proposal.update', $proposal->id) }}" method="POST">
+    <form action="{{ route('proposals.update', $proposal->id) }}" method="POST">
         @csrf
         @method('PUT')
         <label>اسم العرض:</label>
