@@ -12,7 +12,8 @@ class ContractController extends Controller
      */
     public function index()
     {
-        return Contract::all();
+        $contracts = Contract::all();
+        return view('contracts.index', compact('contracts'));
     }
 
     /**
@@ -20,7 +21,7 @@ class ContractController extends Controller
      */
     public function create()
     {
-        //
+        return view('contracts.create');
     }
 
     /**
@@ -29,13 +30,12 @@ class ContractController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'proposal_id' => 'required|exists:proposals,id',
+            //'proposal_id' => 'required|exists:proposals,id',
             'deadline' =>'required|date',
             'payment' => 'required|numeric'
         ]);
-
         $contract = Contract::create($request->only('proposal_id', 'deadline', 'payment'));
-        return response()->json($contract, 201);
+        return redirect()->route('contracts.index')->with('success', 'contract created.');
     }
 
     /**
@@ -49,9 +49,9 @@ class ContractController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Contract $contract)
     {
-        //
+        return view('contracts.edit' , compact('contract'));
     }
 
     /**
@@ -67,7 +67,7 @@ class ContractController extends Controller
 
         $contract->update($request->only('status', 'deadline', 'payment'));
 
-        return response()->json($contract);
+        return redirect()-> route('contracts.index')->with('success', 'Contract updated.');
     }
 
     /**
@@ -77,9 +77,9 @@ class ContractController extends Controller
     {
         if($contract->status !== 'completed'){
             $contract->update(['status' => 'cancelled']);
-            return response()->json(['message' => 'contract cancelled']);
+            return redirect()->route('contracts.index')->with('success', 'Contract cancelled.');
         }
 
-        return response()->json(['error' => 'Completed contracts cannot be cancelled'], 403);
+        return redirect()->route('contracts.index')->with('error', 'completed contracts cannot be cancelled.');
     }
 }
