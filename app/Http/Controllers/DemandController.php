@@ -25,6 +25,7 @@ class DemandController extends Controller
     public function create()
     {
         $demands = Demand::all();
+        return view('demands.create', compact('demands'));
 
     }
 
@@ -52,8 +53,9 @@ class DemandController extends Controller
      */
     public function edit($id)
     {
-      $demands = Demand::findOrFail($id);
-        return view('demands.edit', compact('demand'));
+      $demand = Demand::findOrFail($id);
+        return view('demands.edit' , compact('demand'));
+
     }
 
     /**

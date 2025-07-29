@@ -6,7 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Demand extends Model
 {
-    protected $fillable = ['name', 'amount', 'deadline', 'user_id'];
+    protected $fillable = [
+        'name',
+        'description',
+        'budget',
+        'deadline'
+    ];
 
     /**
      * Get the user that owns the demand.
