@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
                 $table->decimal('amount', 10, 2);
-                $table->decimal('',10,2);
+             
             $table->text('deadline')->nullable();
         
             $table->foreignId('user_id')->constrained()->onDelete('cascade');

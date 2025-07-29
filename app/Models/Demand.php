@@ -6,16 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Demand extends Model
 {
-    protected $table = 'demands';
+    protected $fillable = ['name', 'amount', 'deadline', 'user_id'];
 
-    protected $fillable = [
-        'user_id',
-        'title',
-        'description',
-        'status',
-        'created_at',
-        'updated_at'
-    ];
-
-   
+    /**
+     * Get the user that owns the demand.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
